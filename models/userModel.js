@@ -11,12 +11,18 @@ const userSchema = new mongoose.Schema({
     unique: true,
     required: [true, "Please specify the email"],
     lowercase: true,
-    validate: [validator.isEmal, "The email address is invalid."],
+    validate: {
+      validator: validator.isEmail,
+      message: "The email address is invalid.",
+    },
   },
   password: {
     type: String,
     required: [true, "Please specify the password!"],
-    validate: [validator.isStrongPassword, "Password doesn't meet the minimum requirements!"],
+    validate: {
+      validator: validator.isStrongPassword,
+      message: "Password doesn't meet the minimum requirements!",
+    },
   },
   passwordConfirm: {
     type: String,
@@ -37,6 +43,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: "default_photo.jpg",
   },
+  role: String,
 });
 
 const User = mongoose.model("User", userSchema);

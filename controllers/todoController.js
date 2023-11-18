@@ -1,24 +1,9 @@
 const mongoose = require("mongoose");
 const Todo = require("../models/todoModel");
+const handler = require("../utils/apiHandler");
 
-exports.getAllTodos = async (req, res) => {
-  try {
-    const todos = await Todo.find();
-    res.status(200).json({
-      status: "success",
-      data: todos,
-      results: todos.length,
-    });
-  } catch {
-    res.status(404, {
-      status: "failed",
-      message: "get fucked",
-    });
-  }
-};
-
-exports.helloMessage = (req, res) => {
-  res.status(200).json({
-    status: "success",
-  });
-};
+exports.getAllTodos = handler.getAll(Todo);
+exports.getTodo = handler.getOne(Todo);
+exports.createTodo = handler.createOne(Todo);
+exports.updateTodo = handler.updateOne(Todo);
+exports.deleteTodo = handler.deleteOne(Todo);
