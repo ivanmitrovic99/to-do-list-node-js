@@ -1,10 +1,15 @@
 const catchAsync = require("./catchAsync");
 const AppError = require("./AppError");
 const validateId = require("./validateObjectId");
+const ApiFeatures = require("./apiFeatures");
 
 exports.getAll = Model =>
   catchAsync(async (req, res, next) => {
-    const docs = await Model.find();
+    console.log(req.query);
+
+    const features = new ApiFeatures(Model.find(), req.query).filter().sort().limitResults().limitFields().paginate();
+    const docs = await features.query;
+
     if (!docs) return next(new AppError(404, "No documents found!"));
     res.status(200).json({
       status: "success",

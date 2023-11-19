@@ -1,6 +1,8 @@
 const AppError = require("../utils/AppError");
 
 const sendError = (err, req, res) => {
+  console.log(err);
+
   res.status(err.statusCode).json({
     status: err.status,
     message: err.message,
@@ -21,8 +23,16 @@ const handleDuplicateValueError = err => {
   return new AppError(400, message);
 };
 
+const handleCastError = err => {
+  const value = err.stringValue;
+  const path = err.path;
+  const message = `The provided query [${value}] is invalid for field [${path}]!`;
+  return new AppError(400, message);
+};
+
 module.exports = (err, req, res, next) => {
   if (err.name === "ValidationError") err = handleValidationError(err);
   if (err.code === 11000) err = handleDuplicateValueError(err);
+  if (err.name === "CastError") err = handleCastError(err);
   sendError(err, req, res);
 };
