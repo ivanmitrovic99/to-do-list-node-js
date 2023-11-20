@@ -1,5 +1,7 @@
+const crypto = require("crypto");
 const mongoose = require("mongoose");
 const validator = require("validator");
+const bcrypt = require("bcryptjs");
 
 const userSchema = new mongoose.Schema(
   {
@@ -20,10 +22,10 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       required: [true, "Please specify the password!"],
-      validate: {
-        validator: validator.isStrongPassword,
-        message: "Password doesn't meet the minimum requirements!",
-      },
+      // validate: {
+      //   validator: validator.isStrongPassword,
+      //   message: "Password doesn't meet the minimum requirements!",
+      // },
     },
     passwordConfirm: {
       type: String,
@@ -50,6 +52,17 @@ const userSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+userSchema.pre("save", async function (next) {
+  if (!this.isModified) return next();
+  this.password = await bcrypt.hash(this.password, 12);
+  this.passwordConfirm = undefined;
+  next();
+});
+
+userSchema.methods.correctPassword = async function (candidatePassword, password) {
+  return await bcrypt.compare(candidatePassword, password);
+};
 
 const User = mongoose.model("User", userSchema);
 
