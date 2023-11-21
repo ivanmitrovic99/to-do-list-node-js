@@ -3,7 +3,15 @@ const jwt = require("jsonwebtoken");
 const User = require("./../models/userModel");
 const AppError = require("./../utils/AppError");
 const catchAsync = require("./../utils/catchAsync");
-const promisify = require("util");
+const { promisify } = require("util");
+
+const createActivationToken = function () {
+  const token = crypto.randomBytes(32).toString("hex");
+
+  this.activationToken = token;
+
+  return token;
+};
 
 const signToken = id => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -34,9 +42,15 @@ exports.signup = catchAsync(async (req, res, next) => {
     email: req.body.email,
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
+    role: "user",
+    activationToken: createActivationToken(),
   });
 
-  createSendToken(user, 201, req, res);
+  res.status(200).json({
+    status: "success",
+    message: "Check your email for the activation link!",
+  });
+  // createSendToken(user, 201, req, res);
 });
 
 exports.login = catchAsync(async (req, res, next) => {
@@ -50,10 +64,25 @@ exports.login = catchAsync(async (req, res, next) => {
   if (!user || !(await user.correctPassword(password, user.password))) {
     return next(new AppError(401, "Invalid password or email"));
   }
+
+  if (!user.active) return next(new AppError(400, "Account not activated! Please check your email."));
   createSendToken(user, 201, req, res);
 });
 
 exports.protect = catchAsync(async (req, res, next) => {
-  if (req.cookies?.jwt) token = next();
-  else return next(new AppError(401, "Unauthorized access! Please login!"));
+  if (req.cookies?.jwt) {
+    const token = req.cookies.jwt;
+    const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+    const currentUser = await User.findById(decoded.id);
+    req.user = currentUser;
+
+    next();
+  } else return next(new AppError(401, "Unauthorized access! Please login!"));
 });
+
+exports.restrictTo = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) return next(new AppError(403, "Insufficient permissions!"));
+    next();
+  };
+};

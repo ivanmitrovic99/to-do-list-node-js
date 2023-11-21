@@ -47,6 +47,7 @@ const userSchema = new mongoose.Schema(
       default: "default_photo.jpg",
     },
     role: String,
+    activationToken: String,
   },
   {
     timestamps: true,

@@ -5,8 +5,6 @@ const ApiFeatures = require("./apiFeatures");
 
 exports.getAll = Model =>
   catchAsync(async (req, res, next) => {
-    console.log(req.query);
-
     const features = new ApiFeatures(Model.find(), req.query).filter().sort().limitResults().limitFields().paginate();
     const docs = await features.query;
 
