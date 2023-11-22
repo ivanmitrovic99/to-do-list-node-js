@@ -4,6 +4,7 @@ const User = require("./../models/userModel");
 const AppError = require("./../utils/AppError");
 const catchAsync = require("./../utils/catchAsync");
 const { promisify } = require("util");
+const email = require("./../utils/email");
 
 const createActivationToken = function () {
   const token = crypto.randomBytes(32).toString("hex");
@@ -45,6 +46,9 @@ exports.signup = catchAsync(async (req, res, next) => {
     role: "user",
     activationToken: createActivationToken(),
   });
+
+  const url = `http://localhost:8000/api/users/activate/${user.activationToken}`;
+  email(user.email, url);
 
   res.status(200).json({
     status: "success",
