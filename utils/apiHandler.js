@@ -3,9 +3,18 @@ const AppError = require("./AppError");
 const validateId = require("./validateObjectId");
 const ApiFeatures = require("./apiFeatures");
 
-exports.getAll = Model =>
+exports.getAll = (Model, popOptions) =>
   catchAsync(async (req, res, next) => {
-    const features = new ApiFeatures(Model.find(), req.query).filter().sort().limitResults().limitFields().paginate();
+    let features;
+    if (!popOptions)
+      features = new ApiFeatures(Model.find(), req.query).filter().sort().limitResults().limitFields().paginate();
+    else
+      features = new ApiFeatures(Model.find().populate(popOptions), req.query)
+        .filter()
+        .sort()
+        .limitResults()
+        .limitFields()
+        .paginate();
     const docs = await features.query;
 
     if (!docs) return next(new AppError(404, "No documents found!"));
@@ -16,10 +25,14 @@ exports.getAll = Model =>
     });
   });
 
-exports.getOne = Model =>
+exports.getOne = (Model, popOptions) =>
   catchAsync(async (req, res, next) => {
     validateId(req.params.id, next);
-    const doc = await Model.findById(req.params.id);
+    let doc;
+    if (!popOptions) doc = await Model.findById(req.params.id);
+    else doc = await Model.findById(req.params.id).populate(popOptions);
+    console.log(doc);
+
     if (!doc) return next(new AppError(404, "No document found with specified ID!"));
     res.status(200).json({
       status: "success",

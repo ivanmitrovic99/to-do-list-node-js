@@ -51,8 +51,16 @@ const userSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
   }
 );
+
+userSchema.virtual("todos", {
+  ref: "Todo",
+  localField: "_id",
+  foreignField: "user",
+});
 
 userSchema.pre("save", async function (next) {
   if (!this.isModified) return next();

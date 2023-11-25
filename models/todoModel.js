@@ -14,11 +14,15 @@ const todoSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
     dueDate: Date,
     timeEstimation: String,
     loggedTime: String,
   },
-  { timestamps: true }
+  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
 const Todo = mongoose.model("Todo", todoSchema);

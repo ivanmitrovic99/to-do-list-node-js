@@ -48,13 +48,13 @@ exports.signup = catchAsync(async (req, res, next) => {
   });
 
   const url = `http://localhost:8000/api/users/activate/${user.activationToken}`;
-  email(user.email, url);
+  // email(user.email, url);
 
-  res.status(200).json({
-    status: "success",
-    message: "Check your email for the activation link!",
-  });
-  // createSendToken(user, 201, req, res);
+  // res.status(200).json({
+  //   status: "success",
+  //   message: "Check your email for the activation link!",
+  // });
+  createSendToken(user, 201, req, res);
 });
 
 exports.login = catchAsync(async (req, res, next) => {
