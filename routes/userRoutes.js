@@ -8,7 +8,10 @@ router.route("/signup").post(authController.signup);
 router.route("/login").post(authController.login);
 router.use(authController.protect);
 
+router.route("/myTodos").get(userController.getUserTodos);
+router.route("/createTodo").post(userController.createUserTodo);
 router.route("/").get(userController.getAllUsers).post(userController.createUser);
+router.route("/me").get(userController.getCurrentUser);
 router
   .route("/:id")
   .get(userController.getUser)

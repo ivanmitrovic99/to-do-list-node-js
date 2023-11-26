@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const User = require("../models/userModel");
+const Todo = require("../models/todoModel");
 const handler = require("../utils/apiHandler");
 const catchAsync = require("../utils/catchAsync");
 
@@ -13,5 +14,34 @@ exports.activateUser = catchAsync(async (req, res, next) => {
   res.status(200).json({
     message: "success",
     data: user,
+  });
+});
+exports.getUserTodos = catchAsync(async (req, res, next) => {
+  const doc = await User.findById(req.user._id).populate("todos");
+  if (!doc) return next(new AppError(404, "An unexpecter error happend. Please try logging in again!"));
+  res.status(200).json({
+    status: "success",
+    data: doc.todos,
+  });
+});
+exports.createUserTodo = catchAsync(async (req, res, next) => {
+  const doc = await Todo.create({
+    name: req.body.name,
+    task: req.body.task,
+    timeEstimation: req.body.timeEstimation,
+    user: req.user._id,
+  });
+  res.status(201).json({
+    status: "success",
+    data: doc,
+  });
+});
+
+exports.getCurrentUser = catchAsync(async (req, res, next) => {
+  const doc = await User.findById(req.user._id);
+  if (!doc) return next(new AppError(404, "Something went wrong!"));
+  res.status(200).json({
+    status: "success",
+    data: doc,
   });
 });
