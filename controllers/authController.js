@@ -73,6 +73,16 @@ exports.login = catchAsync(async (req, res, next) => {
   createSendToken(user, 201, req, res);
 });
 
+exports.logout = catchAsync(async (req, res, next) => {
+  res.cookie("jwt", "", {
+    expires: new Date(0),
+  });
+  req.user = undefined;
+  res.status(200).json({
+    status: "success",
+  });
+});
+
 exports.protect = catchAsync(async (req, res, next) => {
   if (req.cookies?.jwt) {
     const token = req.cookies.jwt;

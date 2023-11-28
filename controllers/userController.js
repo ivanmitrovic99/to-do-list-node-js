@@ -3,6 +3,7 @@ const User = require("../models/userModel");
 const Todo = require("../models/todoModel");
 const handler = require("../utils/apiHandler");
 const catchAsync = require("../utils/catchAsync");
+const bcrypt = require("bcryptjs");
 
 exports.getAllUsers = handler.getAll(User, { path: "todos", select: "name" });
 exports.getUser = handler.getOne(User, { path: "todos", select: "name" });
@@ -43,5 +44,18 @@ exports.getCurrentUser = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: "success",
     data: doc,
+  });
+});
+
+exports.changePassword = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.user._id);
+  if (!(await user.correctPassword(req.body.currentPassword, user.password)))
+    return next(new AppError(401, "The current password is invalid!"));
+  const password = await bcrypt.hash(req.body.newPassword, 12);
+  await User.findByIdAndUpdate(req.user._id, {
+    password,
+  });
+  res.status(200).json({
+    status: "success",
   });
 });
