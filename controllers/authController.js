@@ -32,14 +32,14 @@ const createSendToken = (user, statusCode, req, res) => {
   user.password = undefined;
 
   res.status(statusCode).json({
-    message: "success",
+    status: "success",
     data: user,
   });
 };
 
 exports.signup = catchAsync(async (req, res, next) => {
   const user = await User.create({
-    name: req.body.email,
+    name: req.body.name,
     email: req.body.email,
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
@@ -47,13 +47,13 @@ exports.signup = catchAsync(async (req, res, next) => {
     activationToken: createActivationToken(),
   });
 
-  const url = `http://localhost:8000/api/users/activate/${user.activationToken}`;
-  // email(user.email, url);
+  const url = `http://localhost:8000/activate/${user.activationToken}`;
+  email(user.email, url);
 
-  // res.status(200).json({
-  //   status: "success",
-  //   message: "Check your email for the activation link!",
-  // });
+  res.status(200).json({
+    status: "success",
+    message: "Check your email for the activation link!",
+  });
   createSendToken(user, 201, req, res);
 });
 
@@ -70,6 +70,8 @@ exports.login = catchAsync(async (req, res, next) => {
   }
 
   if (!user.active) return next(new AppError(400, "Account not activated! Please check your email."));
+  req.user = user;
+
   createSendToken(user, 201, req, res);
 });
 
