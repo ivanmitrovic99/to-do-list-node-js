@@ -93,7 +93,7 @@ exports.protect = catchAsync(async (req, res, next) => {
     req.user = currentUser;
 
     next();
-  } else return next(new AppError(401, "Unauthorized access! Please login!"));
+  } else res.status(201).render("login");
 });
 
 exports.restrictTo = (...roles) => {

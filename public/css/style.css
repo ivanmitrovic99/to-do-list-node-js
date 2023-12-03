@@ -1,0 +1,6 @@
+.todo-holder {
+  background-color: #fd7070;
+}
+.todo-holder.completed {
+  background-color: #8cfd70;
+}

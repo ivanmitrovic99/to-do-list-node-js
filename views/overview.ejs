@@ -8,11 +8,45 @@
     <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
+    <a href="/user">Account Settings</a>
+    <a href="/logout" class="logout-btn">Logout</a>
     {$ todos.forEach(function (todo) { $}
-    <h2>{$= todo.name $}</h2>
-    <p>{$= todo.task $}</p>
+    <div class="todo-holder {$ if(todo.completed) { $} completed {$ }$}">
+      <h2>{$= todo.name $}</h2>
+      <p class="todo-task">{$= todo.task $}</p>
+      <p class="todo-time">{$= new Date(todo.createdAt).toLocaleString() $}</p>
+      <a href="/update/{$= todo._id $}" data-id="{$=todo._id $}" class="update-btn">Update</a>
+      <a href="/delete/{$= todo._id $}" data-id="{$=todo._id $}" class="delete-btn">Delete</a>
+      <a href="/complete/{$= todo._id $}" data-id="{$=todo._id $}" class="complete-btn">Mark As Completed</a>
+    </div>
     {$ }); $}
-    <p></p>
+
+    <h3>Create To Do</h3>
+    <form id="createForm">
+      <label for="name">Name:</label><br />
+      <input type="name" id="name" name="name" /><br />
+
+      <label for="task">Task:</label><br />
+      <input type="text" id="task" name="task" /><br />
+
+      <input type="submit" value="Submit" />
+    </form>
+
+    <h3>Update To Do</h3>
+    <form id="updateForm">
+      <label for="todo-id">ID:</label><br />
+      <input type="todo-id" id="todo-id" todo-id="todo-id" /><br />
+
+      <label for="update-name">Name:</label><br />
+      <input type="update-name" id="update-name" name="update-name" /><br />
+
+      <label for="update-task">Task:</label><br />
+      <input type="text" id="update-task" name="update-task" /><br />
+
+      <input type="submit" value="Submit" />
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script type="module" src="/js/index.js"></script>
   </body>
 </html>

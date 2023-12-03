@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>To Do List</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <h2>{$= user.name $}</h2>
+    <h3>{$= user.email $}</h3>
+
+    <h3>Update Password</h3>
+    <form id="form">
+      <label for="current-password">Current Password:</label><br />
+      <input type="current-password" id="current-password" current-password="current-password" /><br />
+
+      <label for="new-password">New Password:</label><br />
+      <input type="text" id="new-password" name="new-password" /><br />
+
+      <input type="submit" value="Submit" />
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="/js/user.js"></script>
+  </body>
+</html>
