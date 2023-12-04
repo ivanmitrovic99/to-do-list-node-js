@@ -7,21 +7,29 @@
     <title>To Do List</title>
     <link rel="stylesheet" href="/css/style.css" />
   </head>
-  <body>
-    <h2>{$= user.name $}</h2>
-    <h3>{$= user.email $}</h3>
+  <body class="login-page">
+    <div class="nav">
+      <a href="/overview">Home</a>
+      <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+    <div class="content-holder">
+      <form id="form">
+        <h2>Name: {$= user.name $}</h2>
+        <h2>Email: {$= user.email $}</h2>
 
-    <h3>Update Password</h3>
-    <form id="form">
-      <label for="current-password">Current Password:</label><br />
-      <input type="current-password" id="current-password" current-password="current-password" /><br />
+        <h3>Update Password</h3>
+        <input
+          type="current-password"
+          id="current-password"
+          current-password="current-password"
+          placeholder="Current Password ..."
+        /><br />
 
-      <label for="new-password">New Password:</label><br />
-      <input type="text" id="new-password" name="new-password" /><br />
+        <input type="text" id="new-password" name="new-password" placeholder="New Password" /><br />
 
-      <input type="submit" value="Submit" />
-    </form>
-
+        <input type="submit" value="Submit" class="submit-btn" />
+      </form>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script type="module" src="/js/user.js"></script>
   </body>

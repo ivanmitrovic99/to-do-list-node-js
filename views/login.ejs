@@ -5,18 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>To Do List</title>
-    <!-- <link rel="stylesheet" href="style.css" /> -->
+    <link rel="stylesheet" href="/css/style.css" />
   </head>
-  <body>
+  <body class="login-page">
     <form id="loginForm">
-      <label for="email">Email:</label><br />
-      <input type="email" id="email" name="email" /><br />
+    <h1>To Do List App</h1>
+    <h2> Please login to continue</h2>
+      <input type="email" id="email" name="email" placeholder="Email ..." /><br />
 
-      <label for="password">Password:</label><br />
-      <input type="text" id="password" name="password"></input><br />
+      <input type="password" id="password" name="password" placeholder="Password ..."></input><br />
 
-      <input type="submit" value="Submit" />
+      <input type="submit" class="submit-btn" value="Login" />
     </form>
+    <h3>Don't have an account? <a href="/signup">Click to register</a></h3>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script type="module" src="/js/login.js"></script>
   </body>

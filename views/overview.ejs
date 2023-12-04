@@ -8,18 +8,24 @@
     <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
-    <a href="/user">Account Settings</a>
-    <a href="/logout" class="logout-btn">Logout</a>
-    {$ todos.forEach(function (todo) { $}
-    <div class="todo-holder {$ if(todo.completed) { $} completed {$ }$}">
-      <h2>{$= todo.name $}</h2>
-      <p class="todo-task">{$= todo.task $}</p>
-      <p class="todo-time">{$= new Date(todo.createdAt).toLocaleString() $}</p>
-      <a href="/update/{$= todo._id $}" data-id="{$=todo._id $}" class="update-btn">Update</a>
-      <a href="/delete/{$= todo._id $}" data-id="{$=todo._id $}" class="delete-btn">Delete</a>
-      <a href="/complete/{$= todo._id $}" data-id="{$=todo._id $}" class="complete-btn">Mark As Completed</a>
+    <div class="nav">
+      <a href="/user">Change Password</a>
+      <a href="/logout" class="logout-btn">Logout</a>
     </div>
-    {$ }); $}
+    <div class="todos">
+      {$ todos.forEach(function (todo) { $}
+      <div class="todo-holder {$ if(todo.completed) { $} completed {$ }$}">
+        <h2>{$= todo.name $}</h2>
+        <p class="todo-task">{$= todo.task $}</p>
+        <p class="todo-time">{$= new Date(todo.createdAt).toLocaleString() $}</p>
+        <div class="btns-holder">
+          <a href="/update/{$= todo._id $}" data-id="{$=todo._id $}" class="update-btn">Update</a>
+          <a href="/delete/{$= todo._id $}" data-id="{$=todo._id $}" class="delete-btn">Delete</a>
+          <a href="/complete/{$= todo._id $}" data-id="{$=todo._id $}" class="complete-btn">Mark As Completed</a>
+        </div>
+      </div>
+      {$ }); $}
+    </div>
 
     <h3>Create To Do</h3>
     <form id="createForm">

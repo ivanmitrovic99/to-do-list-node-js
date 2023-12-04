@@ -5,23 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>To Do List</title>
-    <!-- <link rel="stylesheet" href="style.css" /> -->
+    <link rel="stylesheet" href="css/style.css" />
   </head>
-  <body>
+  <body class="login-page">
     <form id="signupForm">
-      <label for="name">Name:</label><br />
-      <input type="name" id="name" name="name" /><br />
+      <h1>Register</h1>
+      <input type="name" id="name" name="name" placeholder="Name ..."/><br />
 
-      <label for="email">Email:</label><br />
-      <input type="email" id="email" name="email" /><br />
+      <input type="email" id="email" name="email" placeholder="Email ..." /><br />
 
-      <label for="password">Password:</label><br />
-      <input type="text" id="password" name="password"></input><br />
+      <input type="password" id="password" name="password" placeholder="Password ..."></input><br />
 
-      <label for="password-confirm">Confirm Password:</label><br />
-      <input type="text" id="password-confirm" name="password-confirm"></input><br />
+      <input type="password" id="password-confirm" name="password-confirm" placeholder="Confirm Password ..."></input><br />
 
-      <input type="submit" value="Submit" />
+      <input type="submit" value="Register" class="submit-btn register"/>
     </form>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script type="module" src="/js/signup.js"></script>
