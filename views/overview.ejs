@@ -8,16 +8,22 @@
     <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
+    <div class="overlay"></div>
+    <div class="error-popup">
+      <p class="error-msg">Error</p>
+    </div>
     <div class="nav">
+      <a href="#" class="create-btn">Create A New Task</a>
       <a href="/user">Change Password</a>
       <a href="/logout" class="logout-btn">Logout</a>
     </div>
+
     <div class="todos">
       {$ todos.forEach(function (todo) { $}
       <div class="todo-holder {$ if(todo.completed) { $} completed {$ }$}">
-        <h2>{$= todo.name $}</h2>
-        <p class="todo-task">{$= todo.task $}</p>
-        <p class="todo-time">{$= new Date(todo.createdAt).toLocaleString() $}</p>
+        <h2>Name: <span>{$= todo.name $}</span></h2>
+        <p class="todo-task">Task: <span>{$= todo.task $}</span></p>
+        <p class="todo-time">Created At: {$= new Date(todo.createdAt).toLocaleString() $}</p>
         <div class="btns-holder">
           <a href="/update/{$= todo._id $}" data-id="{$=todo._id $}" class="update-btn">Update</a>
           <a href="/delete/{$= todo._id $}" data-id="{$=todo._id $}" class="delete-btn">Delete</a>
@@ -27,29 +33,31 @@
       {$ }); $}
     </div>
 
-    <h3>Create To Do</h3>
+    {$ if(todos.length == 0){ $}
+    <div class="empty-content-message">
+      <h1>No tasks to show... <a href="#" class="create-btn">Create a task!</a></h1>
+    </div>
+    {$ } $}
     <form id="createForm">
-      <label for="name">Name:</label><br />
-      <input type="name" id="name" name="name" /><br />
+      <div class="close-btn">&times;</div>
+      <h3>Create A New Task</h3>
+      <input placeholder="Name ..." type="name" id="name" name="name" /><br />
 
-      <label for="task">Task:</label><br />
-      <input type="text" id="task" name="task" /><br />
+      <input placeholder="Task ..." type="text" id="task" name="task" /><br />
 
-      <input type="submit" value="Submit" />
+      <input type="submit" value="Submit" class="submit-btn" />
     </form>
 
-    <h3>Update To Do</h3>
     <form id="updateForm">
-      <label for="todo-id">ID:</label><br />
-      <input type="todo-id" id="todo-id" todo-id="todo-id" /><br />
+      <div class="close-btn">&times;</div>
+      <h3>Update A Task</h3>
+      <input class="todo-id" type="todo-id" id="todo-id" todo-id="todo-id" /><br />
 
-      <label for="update-name">Name:</label><br />
-      <input type="update-name" id="update-name" name="update-name" /><br />
+      <input placeholder="Name ..." type="update-name" id="update-name" name="update-name" /><br />
 
-      <label for="update-task">Task:</label><br />
-      <input type="text" id="update-task" name="update-task" /><br />
+      <input placeholder="Task ..." type="text" id="update-task" name="update-task" /><br />
 
-      <input type="submit" value="Submit" />
+      <input type="submit" value="Submit" class="submit-btn" />
     </form>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

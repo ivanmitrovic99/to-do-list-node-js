@@ -1,3 +1,13 @@
+const showError = function (err) {
+  const popup = document.querySelector(".error-popup");
+  const message = document.querySelector(".error-popup .error-msg");
+  message.innerHTML = err;
+  popup.classList.add("active");
+  setTimeout(function () {
+    popup.classList.remove("active");
+  }, 5000);
+};
+
 const signup = async (name, email, password, passwordConfirm) => {
   try {
     const res = await axios({
@@ -12,13 +22,10 @@ const signup = async (name, email, password, passwordConfirm) => {
     });
 
     if (res.data.status === "success") {
-      alert("success", "Sign Up successfull! Check your email for the activation token!");
-      //   window.setTimeout(() => {
-      //     location.assign("/signupSuccess");
-      //   }, 1500);
+      showError("Sign Up successfull! Check your email for the activation link!");
     }
   } catch (err) {
-    alert(err.response.data.message);
+    showError(err.response.data.message);
   }
 };
 

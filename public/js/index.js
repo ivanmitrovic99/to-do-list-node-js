@@ -1,3 +1,12 @@
+const showError = function (err) {
+  const popup = document.querySelector(".error-popup");
+  const message = document.querySelector(".error-popup .error-msg");
+  message.innerHTML = err;
+  popup.classList.add("active");
+  setTimeout(function () {
+    popup.classList.remove("active");
+  }, 5000);
+};
 const createTodo = async (name, task) => {
   try {
     const res = await axios({
@@ -10,11 +19,10 @@ const createTodo = async (name, task) => {
     });
 
     if (res.data.status === "success") {
-      alert("success");
       window.location.assign("/overview");
     }
   } catch (err) {
-    alert(err);
+    showError(err);
   }
 };
 
@@ -30,11 +38,10 @@ const updateTodo = async (id, name, task) => {
     });
 
     if (res.data.status === "success") {
-      alert("success", "Logged in successfully!");
       window.location.assign("/overview");
     }
   } catch (err) {
-    alert(err);
+    showError(err);
   }
 };
 
@@ -46,11 +53,11 @@ const deleteTodo = async id => {
     });
 
     if (res.status === 200) {
-      alert("success", "Logged in successfully!");
+      showError("Deleted succesfully!");
       window.location.assign("/overview");
     }
   } catch (err) {
-    alert(err);
+    showError(err);
   }
 };
 
@@ -63,14 +70,14 @@ const completeTodo = async id => {
     console.log(res);
 
     if (res.status === 200) {
-      alert("success", "Logged in successfully!");
       window.location.assign("/overview");
     }
   } catch (err) {
-    alert(err);
+    showError(err);
   }
 };
 
+const closeBtns = document.querySelectorAll(".close-btn");
 const updateBtns = document.querySelectorAll(".update-btn");
 const deleteBtns = document.querySelectorAll(".delete-btn");
 const completeBtns = document.querySelectorAll(".compelete-btn");
@@ -95,10 +102,11 @@ const updateForm = document.getElementById("updateForm");
 updateBtns.forEach(el => {
   el.addEventListener("click", e => {
     e.preventDefault();
-
+    updateForm.classList.add("active");
     document.querySelector("#todo-id").value = e.target.dataset.id;
-    document.querySelector("#update-name").value = e.target.parentNode.querySelector("h2").innerHTML;
-    document.querySelector("#update-task").value = e.target.parentNode.querySelector("p.todo-task").innerHTML;
+    document.querySelector("#update-name").value = e.target.parentNode.parentNode.querySelector("h2 span").innerHTML;
+    document.querySelector("#update-task").value =
+      e.target.parentNode.parentNode.querySelector("p.todo-task span").innerHTML;
   });
 });
 
@@ -117,8 +125,21 @@ updateForm.addEventListener("submit", e => {
   const id = document.querySelector("#todo-id").value;
   const name = document.querySelector("#update-name").value;
   const task = document.querySelector("#update-task").value;
-
   updateTodo(id, name, task);
+});
+
+closeBtns.forEach(el => {
+  el.addEventListener("click", function () {
+    createForm.classList.remove("active");
+    updateForm.classList.remove("active");
+  });
+});
+
+const createBtns = document.querySelectorAll(".create-btn");
+createBtns.forEach(el => {
+  el.addEventListener("click", () => {
+    createForm.classList.add("active");
+  });
 });
 
 logoutBtn.addEventListener("click", async e => {
@@ -130,10 +151,10 @@ logoutBtn.addEventListener("click", async e => {
     });
 
     if (res.status === 200) {
-      alert("success", "Logged in successfully!");
+      showError("Logging out!");
       window.location.assign("/");
     }
   } catch (err) {
-    alert(err);
+    showError(err);
   }
 });

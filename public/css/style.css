@@ -20,7 +20,9 @@ body.login-page {
   align-items: center;
   flex-direction: column;
 }
-.login-page form {
+.login-page form,
+#createForm,
+#updateForm {
   background-color: whitesmoke;
   padding: 3em 8em;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
@@ -37,7 +39,9 @@ body.login-page {
 .login-page a {
   color: #4141ff;
 }
-.login-page .submit-btn {
+.login-page .submit-btn,
+#createForm .submit-btn,
+#updateForm .submit-btn {
   padding: 20px 108px;
   text-transform: uppercase;
   background-color: #57ff57;
@@ -45,13 +49,18 @@ body.login-page {
 .login-page .submit-btn.register {
   padding: 20px 100px;
 }
-.login-page .submit-btn:hover {
+.login-page .submit-btn:hover,
+#createForm .submit-btn:hover,
+#updateForm .submit-btn:hover {
   background-color: transparent;
   cursor: pointer;
   transition: 0.3s ease-in-out;
 }
-.login-page form input {
-  padding: 20px 90px 20px 10px;
+.login-page form input,
+#createForm input,
+#updateForm input {
+  padding: 20px 10px;
+  width: 300px;
   border-radius: 10px;
   border: 1px solid #000;
   margin: 10px;
@@ -95,7 +104,89 @@ body.login-page {
 .todo-holder .complete-btn {
   background-color: #1d7506;
 }
+#createForm,
+#updateForm {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: 0.3s ease-in-out;
+  z-index: -1;
+}
+#createForm.active,
+#updateForm.active {
+  opacity: 1;
+  transition: 0.3s ease-in-out;
+  z-index: 1;
+}
+.todo-id {
+  display: none;
+}
+.create-btn {
+  color: whitesmoke;
+}
+.create-btn:hover {
+  color: #353535;
+}
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 2.4em;
+  cursor: pointer;
+}
+.empty-content-message {
+  text-align: center;
+}
+.empty-content-message h1 {
+  color: whitesmoke;
+}
 /* Overview page end */
+
+/* Error popup */
+
+.error-popup {
+  position: absolute;
+  top: 30px;
+  width: 50%;
+  text-align: center;
+  background-color: #fff;
+  padding: 2em;
+  border-radius: 20px;
+  opacity: 0;
+  transition: 0.5s ease-in-out;
+}
+
+.error-popup.active {
+  opacity: 1;
+  transition: 0.5s ease-in-out;
+}
+
+/* Error popup end */
+/* Activation page */
+
+.activation-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.activation-page a {
+  background-color: #fff;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 20px;
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+}
+.activation-page a:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+/* Activation page end */
 
 .nav {
   position: fixed;

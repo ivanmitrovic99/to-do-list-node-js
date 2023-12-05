@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body class="login-page">
+    <div class="error-popup">
+      <p class="error-msg">Error</p>
+    </div>
     <div class="nav">
       <a href="/overview">Home</a>
       <a href="/logout" class="logout-btn">Logout</a>
@@ -19,13 +22,13 @@
 
         <h3>Update Password</h3>
         <input
-          type="current-password"
+          type="password"
           id="current-password"
           current-password="current-password"
           placeholder="Current Password ..."
         /><br />
 
-        <input type="text" id="new-password" name="new-password" placeholder="New Password" /><br />
+        <input type="password" id="new-password" name="new-password" placeholder="New Password" /><br />
 
         <input type="submit" value="Submit" class="submit-btn" />
       </form>

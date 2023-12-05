@@ -48,7 +48,7 @@ exports.signup = catchAsync(async (req, res, next) => {
   });
 
   const url = `http://localhost:8000/activate/${user.activationToken}`;
-  email(user.email, url);
+  email(user.email, url, user.name);
 
   res.status(200).json({
     status: "success",

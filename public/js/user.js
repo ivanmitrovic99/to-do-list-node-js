@@ -1,3 +1,12 @@
+const showError = function (err) {
+  const popup = document.querySelector(".error-popup");
+  const message = document.querySelector(".error-popup .error-msg");
+  message.innerHTML = err;
+  popup.classList.add("active");
+  setTimeout(function () {
+    popup.classList.remove("active");
+  }, 5000);
+};
 const updatePassword = async (currentPassword, newPassword) => {
   try {
     const res = await axios({
@@ -10,11 +19,11 @@ const updatePassword = async (currentPassword, newPassword) => {
     });
 
     if (res.data.status === "success") {
-      alert("success", "Logged in successfully!");
+      showError("Logged out!");
       window.location.assign("/overview");
     }
   } catch (err) {
-    alert(err);
+    showError(err);
   }
 };
 

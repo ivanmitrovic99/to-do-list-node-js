@@ -8,15 +8,18 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body class="login-page">
+    <div class="error-popup">
+      <p class="error-msg">Error</p>
+    </div>
     <form id="signupForm">
       <h1>Register</h1>
-      <input type="name" id="name" name="name" placeholder="Name ..."/><br />
+      <input type="name" id="name" name="name" required placeholder="Name ..."/><br />
 
-      <input type="email" id="email" name="email" placeholder="Email ..." /><br />
+      <input type="email" id="email" name="email" required placeholder="Email ..." /><br />
 
-      <input type="password" id="password" name="password" placeholder="Password ..."></input><br />
+      <input type="password" id="password" name="password" required placeholder="Password ..."></input><br />
 
-      <input type="password" id="password-confirm" name="password-confirm" placeholder="Confirm Password ..."></input><br />
+      <input type="password" id="password-confirm" required name="password-confirm" placeholder="Confirm Password ..."></input><br />
 
       <input type="submit" value="Register" class="submit-btn register"/>
     </form>
