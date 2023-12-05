@@ -34,3 +34,22 @@ form.addEventListener("submit", e => {
   const newPassword = document.getElementById("new-password").value;
   updatePassword(currentPassword, newPassword);
 });
+
+const logoutBtn = document.querySelector(".logout-btn");
+
+logoutBtn.addEventListener("click", async e => {
+  e.preventDefault();
+  try {
+    const res = await axios({
+      method: "GET",
+      url: `/api/users/logout`,
+    });
+
+    if (res.status === 200) {
+      showError("Logging out!");
+      window.location.assign("/");
+    }
+  } catch (err) {
+    showError(err);
+  }
+});
