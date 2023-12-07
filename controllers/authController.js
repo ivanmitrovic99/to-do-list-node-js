@@ -54,7 +54,7 @@ exports.signup = catchAsync(async (req, res, next) => {
     status: "success",
     message: "Check your email for the activation link!",
   });
-  createSendToken(user, 201, req, res);
+  // createSendToken(user, 201, req, res);
 });
 
 exports.login = catchAsync(async (req, res, next) => {
