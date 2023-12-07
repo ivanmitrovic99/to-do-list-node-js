@@ -29,6 +29,12 @@ app.use("/api/users/", userRouter);
 
 app.use("/", viewRouter);
 
+app.all("*", (req, res, next) => {
+  res.status(404).render("404", {
+    status: "fail",
+  });
+});
+
 app.use(errorHandler);
 
 module.exports = app;

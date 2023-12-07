@@ -67,7 +67,6 @@ const completeTodo = async id => {
       method: "GET",
       url: `/complete/${id}`,
     });
-    console.log(res);
 
     if (res.status === 200) {
       window.location.assign("/overview");

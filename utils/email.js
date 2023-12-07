@@ -62,11 +62,5 @@ module.exports = (recipient, url, name) => {
     html: emailContent,
   };
 
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      console.error(error);
-    } else {
-      console.log("Email sent: " + info.response);
-    }
-  });
+  transporter.sendMail(mailOptions);
 };

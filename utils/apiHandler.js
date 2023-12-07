@@ -31,7 +31,6 @@ exports.getOne = (Model, popOptions) =>
     let doc;
     if (!popOptions) doc = await Model.findById(req.params.id);
     else doc = await Model.findById(req.params.id).populate(popOptions);
-    console.log(doc);
 
     if (!doc) return next(new AppError(404, "No document found with specified ID!"));
     res.status(200).json({
