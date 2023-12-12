@@ -22,11 +22,11 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       required: [true, "Please specify the password!"],
-      // validate: {
-      //   validator: validator.isStrongPassword,
-      //   message:
-      //     "Password doesn't meet the minimum complexity requirements! (Atleast one uppercase character, one numeric and one special character)",
-      // },
+      validate: {
+        validator: validator.isStrongPassword,
+        message:
+          "Password doesn't meet the minimum complexity requirements! (Atleast one uppercase character, one numeric and one special character)",
+      },
     },
     passwordConfirm: {
       type: String,

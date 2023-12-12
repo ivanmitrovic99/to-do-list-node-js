@@ -111,14 +111,16 @@ body.login-page {
   top: 50%;
   transform: translate(-50%, -50%);
   opacity: 0;
-  transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out all;
   z-index: -1;
+  display: none;
 }
 #createForm.active,
 #updateForm.active {
   opacity: 1;
-  transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out all;
   z-index: 1;
+  display: block;
 }
 .todo-id {
   display: none;
@@ -158,12 +160,14 @@ body.login-page {
   left: 50%;
   transform: translate(-50%, 0);
   transition: 0.5s ease-in-out;
+  display: none;
 }
 
 .error-popup.active {
   opacity: 1;
   transition: 0.5s ease-in-out;
   z-index: 2;
+  display: block;
 }
 
 /* Error popup end */
