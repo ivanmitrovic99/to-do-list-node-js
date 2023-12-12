@@ -155,12 +155,15 @@ body.login-page {
   padding: 2em;
   border-radius: 20px;
   opacity: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
   transition: 0.5s ease-in-out;
 }
 
 .error-popup.active {
   opacity: 1;
   transition: 0.5s ease-in-out;
+  z-index: 2;
 }
 
 /* Error popup end */
