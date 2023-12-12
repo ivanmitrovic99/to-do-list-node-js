@@ -47,7 +47,7 @@ exports.signup = catchAsync(async (req, res, next) => {
     activationToken: createActivationToken(),
   });
 
-  const url = `https://to-do-list-ivanm.onrender.com/activate/${user.activationToken}`;
+  const url = `https://to-do-list-ivanm-5aq5.onrender.com/activate/${user.activationToken}`;
   email(user.email, url, user.name);
 
   res.status(200).json({
